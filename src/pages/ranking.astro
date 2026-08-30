@@ -3,28 +3,44 @@ import Base from '../layouts/Base.astro';
 import PageHeader from '../components/PageHeader.astro';
 
 /**
- * Ranking PDFs. `file` is the original WordPress upload path and must not change
- * — these links are shared around and have to keep resolving forever.
- * To add a season: drop the PDF into public/wp-content/uploads/<year>/ and add
- * an entry at the top of this list.
+ * Seasons of the national ranking, newest first.
+ *
+ * Two kinds of entry:
+ *   kind: 'pdf'      `href` is the original WordPress upload path and must not
+ *                    change — those links are shared around and have to keep
+ *                    resolving forever. Drop new PDFs into
+ *                    public/wp-content/uploads/<year>/ and add an entry here.
+ *   kind: 'external' the season is tracked on someone else's site (from 2026 on
+ *                    that is r4wrun.com), so we just link out.
  */
 const rankings = [
   {
+    year: '2026',
+    label: 'Deutsche Meisterschaft 2026',
+    kind: 'external' as const,
+    href: 'https://r4wrun.com/championships/deutsche-meisterschaft-dqL1CKqC',
+    meta: 'Ergebnisse auf r4wrun.com',
+  },
+  {
     year: '2025',
     label: 'German Champs 2025',
-    file: '/wp-content/uploads/2026/01/2025-german-champs.pdf',
+    kind: 'pdf' as const,
+    href: '/wp-content/uploads/2026/01/2025-german-champs.pdf',
+    meta: 'PDF herunterladen',
   },
   {
     year: '2024',
     label: 'Gesamtwertung DM 2024',
-    file: '/wp-content/uploads/2024/09/Gesamtwertung-DM-2024.pdf',
+    kind: 'pdf' as const,
+    href: '/wp-content/uploads/2024/09/Gesamtwertung-DM-2024.pdf',
+    meta: 'PDF herunterladen',
   },
 ];
 ---
 
 <Base
   title="Ranking"
-  description="Die nationale Rangliste von Downhill Deutschland: Gesamtwertungen der Deutschen Meisterschaft als PDF."
+  description="Die nationale Rangliste von Downhill Deutschland: die Gesamtwertungen der Deutschen Meisterschaft, Saison für Saison."
 >
   <PageHeader
     eyebrow="Nationale Rangliste"
@@ -37,26 +53,42 @@ const rankings = [
       {
         rankings.map((entry) => (
           <li class="group relative flex items-center gap-5 rounded-xl border border-ink-800 bg-ink-850 p-6 transition-colors hover:border-brand">
-            <span class="font-display text-4xl font-black leading-none text-ink-700 transition-colors group-hover:text-brand" aria-hidden="true">
+            <span
+              class="font-display text-4xl font-black leading-none text-ink-700 transition-colors group-hover:text-brand"
+              aria-hidden="true"
+            >
               {entry.year}
             </span>
+
             <span class="min-w-0 flex-1">
               <span class="block font-bold text-ink-50">
-                <a href={entry.file} download class="after:absolute after:inset-0">
+                <a
+                  href={entry.href}
+                  download={entry.kind === 'pdf' ? true : undefined}
+                  rel={entry.kind === 'external' ? 'noopener' : undefined}
+                  class="after:absolute after:inset-0"
+                >
                   {entry.label}
                 </a>
               </span>
-              <span class="mt-1 block text-sm text-ink-400">PDF herunterladen</span>
+              <span class="mt-1 block text-sm text-ink-400">{entry.meta}</span>
             </span>
+
             <svg
               viewBox="0 0 16 16"
               class="h-5 w-5 shrink-0 text-ink-600 transition-colors group-hover:text-brand-bright"
               fill="none"
               stroke="currentColor"
               stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
               aria-hidden="true"
             >
-              <path d="M8 2v9m0 0 3.5-3.5M8 11 4.5 7.5M2.5 13.5h11" stroke-linecap="round" stroke-linejoin="round" />
+              {entry.kind === 'pdf' ? (
+                <path d="M8 2v9m0 0 3.5-3.5M8 11 4.5 7.5M2.5 13.5h11" />
+              ) : (
+                <path d="M6 3h7v7M13 3 4 12" />
+              )}
             </svg>
           </li>
         ))
@@ -64,8 +96,15 @@ const rankings = [
     </ul>
 
     <p class="mt-10 max-w-2xl text-sm leading-relaxed text-ink-400">
-      Einzelergebnisse der World Skate Games 2024 sowie die Ergebnislisten einzelner Rennen findet
-      ihr in den jeweiligen <a href="/" class="font-semibold text-brand-bright hover:text-ink-50">News-Beiträgen</a>.
+      Seit der Saison 2026 wird die Deutsche Meisterschaft auf <a
+        href="https://r4wrun.com"
+        rel="noopener"
+        class="font-semibold text-brand-bright hover:text-ink-50">r4wrun.com</a
+      > geführt — dort stehen immer die aktuellen Ergebnisse. Einzelergebnisse der World Skate Games
+      2024 sowie die Ergebnislisten einzelner Rennen findet ihr in den jeweiligen <a
+        href="/"
+        class="font-semibold text-brand-bright hover:text-ink-50">News-Beiträgen</a
+      >.
     </p>
   </div>
 </Base>
