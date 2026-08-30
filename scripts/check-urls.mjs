@@ -34,9 +34,17 @@ for (const raw of lines) {
   else if (status === 'DROP') dropped.push(urlPath);
 }
 
+/**
+ * A preview build serves everything under a sub-path, but `base` is a URL prefix
+ * - the files still sit at the root of dist/. Strip it before resolving.
+ */
+const BASE = (process.env.PREVIEW_BASE ?? '').replace(/\/+$/, '');
+
 /** Map a public path to the file dist/ should contain. */
 function distFile(urlPath) {
-  const rel = decodeURIComponent(urlPath).replace(/^\//, '');
+  let rel = decodeURIComponent(urlPath);
+  if (BASE && (rel === BASE || rel.startsWith(`${BASE}/`))) rel = rel.slice(BASE.length) || '/';
+  rel = rel.replace(/^\//, '');
   if (rel === '' || rel.endsWith('/')) return path.join(DIST, rel, 'index.html');
   return path.join(DIST, rel);
 }
