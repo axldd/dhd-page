@@ -56,12 +56,32 @@ Don't delete canceled events — set `status: canceled` instead, and they'll be 
 
 ## Updating rankings
 
-1. Put the new PDF under `public/wp-content/uploads/<year>/` (any year folder works — the path just has to stay stable forever).
-2. Add it to the list at the top of `src/pages/ranking.astro`:
+Add an entry at the top of the list in `src/pages/ranking.astro`. There are two kinds:
 
-   ```js
-   { year: '2027', label: 'German Champs 2027', file: '/wp-content/uploads/2027/01/…pdf' },
-   ```
+**Tracked on another site** (like r4wrun.com, which is how it works from 2026 on):
+
+```js
+{
+  year: '2027',
+  label: 'Deutsche Meisterschaft 2027',
+  kind: 'external',
+  href: 'https://r4wrun.com/championships/…',
+  meta: 'Ergebnisse auf r4wrun.com',
+},
+```
+
+**As a PDF:** put the file under `public/wp-content/uploads/<year>/` first (any year
+folder works — the path just has to stay stable forever), then:
+
+```js
+{
+  year: '2027',
+  label: 'German Champs 2027',
+  kind: 'pdf',
+  href: '/wp-content/uploads/2027/01/….pdf',
+  meta: 'PDF herunterladen',
+},
+```
 
 Old PDF links keep working because their paths never change.
 
@@ -106,19 +126,3 @@ together into one folder would overwrite one of them.
 - **Image not showing:** check the path — images live in `src/assets/`, and the reference in the post is relative (`../../assets/...`).
 - **Old links from Instagram etc.:** every page, post and PDF URL from the previous WordPress site keeps working — please never rename the filenames/slugs of existing posts, or move a PDF out of `public/wp-content/uploads/`. `npm run check:urls` runs on every push and fails the build if one would break. (Direct links to *image files* on the old site are the one exception — those were intentionally not carried over.)
 - **Everything is broken:** when in doubt, revert to the last working commit on GitHub — the site rebuilds from that state automatically.
-
-## Legal
-
-The Impressum is Markdown under `src/content/pages/`. The Datenschutzerklärung is
-`src/pages/datenschutz.astro` and is still marked as a draft — it describes what the
-site actually does (static, no cookies, no tracking, local fonts, GitHub Pages logs)
-but has not been reviewed by a lawyer. Please get that done before the domain is
-switched over.
-
-It describes the site as it is **today**. If we ever embed something (a video, a map,
-a calendar), add a form, or load a font from a CDN, that text has to be updated in the
-same change.
-
-## For Claude Code
-
-The full instructions (migration from WordPress, rules, phases, URL preservation) are in `CLAUDE.md`. Claude Code can create posts, maintain the design, run the migration, and deploy — it is instructed to never alter or invent content and never break existing URLs.
