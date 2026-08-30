@@ -30,8 +30,8 @@ const RESTRUCTURED = new Set(['/kalender/', '/ranking/', '/community/', '/kontak
 const EDITED = new Map([
   [
     '/impressum/',
-    'responsible party changed to Downhill Deutschland e.V.; the previous ' +
-      'private address was removed on request (2026-08-30)',
+    'responsible party is now Downhill Deutschland e.V. in Ludwigsburg; the ' +
+      "previous private address was removed on request (2026-08-30)",
   ],
 ]);
 

@@ -4,10 +4,14 @@ description: "Impressum von Downhill Deutschland e.V. — Anbieterkennzeichnung,
 wpId: 176
 ---
 
-<!-- TODO: Anschrift des Vereins ergänzen (in Deutschland nach § 5 DDG Pflicht),
-     ebenso Vertretungsberechtigte(r) und Vereinsregister/Registernummer. -->
+<!-- TODO: noch offen — Vereinsregister und Registernummer
+     (z. B. "Amtsgericht Stuttgart, VR 12345"). -->
 
-**Downhill Deutschland e.V.**
+**Downhill Deutschland e.V.**\
+Reinhold-Maier-Str. 25\
+71642 Ludwigsburg
+
+**Vertreten durch:** Ulrich Becker (Vorstand)
 
 **E-Mail:** alex@downhilldeutschland.de
 
