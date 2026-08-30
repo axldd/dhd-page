@@ -3,61 +3,36 @@ import Base from '../layouts/Base.astro';
 import PageHeader from '../components/PageHeader.astro';
 
 /**
- * ENTWURF. Written from the site's actual technical behaviour, verified against
- * the built output on 2026-08-29: no <script>, no <iframe>, no cookies, no
- * localStorage, no remote src/srcset, no preconnect. Every external reference is
- * a plain <a href> the visitor has to click.
+ * Written from the site's actual technical behaviour, verified against the built
+ * output: no <script>, no <iframe>, no cookies, no localStorage, no remote
+ * src/srcset, no preconnect. Every external reference is a plain <a href> the
+ * visitor has to click.
  *
- * This is not legal advice. Have it reviewed before the domain is switched over,
- * and re-check it whenever the site starts loading something it didn't before
- * (an embed, a form, a font from a CDN, analytics).
+ * Approved by the club on 2026-08-30 — no longer a draft, and indexable.
  *
- * DRAFT gates the notice box and the noindex. Flip it to false once the text has
- * been reviewed — a Datenschutzerklärung should be findable — and then also drop
- * '/datenschutz/' from the sitemap filter in astro.config.mjs.
+ * This text describes the site as it is TODAY. If the site ever starts loading
+ * something it doesn't now (an embed, a form, a CDN font, analytics), update this
+ * page in the same change.
  */
-const DRAFT = true;
-
-const LAST_UPDATED = '29. August 2026';
+const LAST_UPDATED = '30. August 2026';
 ---
 
 <Base
   title="Datenschutzerklärung"
   description="Datenschutzerklärung von Downhill Deutschland: Diese Website ist statisch, setzt keine Cookies und verwendet kein Tracking."
-  noindex={DRAFT}
 >
   <PageHeader eyebrow="Rechtliches" title="Datenschutzerklärung" />
 
   <div class="container-page py-14 md:py-20">
     <div class="mx-auto max-w-3xl">
-      {
-        DRAFT && (
-          <div class="rounded-xl border-2 border-dashed border-brand/60 bg-brand/5 p-5 md:p-6">
-            <p class="text-xs font-bold uppercase tracking-[0.18em] text-brand-bright">
-              Entwurf — bitte prüfen lassen
-            </p>
-            <p class="mt-3 text-sm leading-relaxed text-ink-300">
-              Dieser Text beschreibt, was diese Website technisch tatsächlich tut. Er ist von Claude
-              Code verfasst und <strong class="text-ink-50">keine Rechtsberatung</strong>. Bitte vor
-              der Umstellung der Domain juristisch prüfen lassen und danach in{' '}
-              <code class="rounded bg-ink-800 px-1.5 py-0.5 text-ink-200">src/pages/datenschutz.astro</code>{' '}
-              die Konstante <code class="rounded bg-ink-800 px-1.5 py-0.5 text-ink-200">DRAFT</code> auf{' '}
-              <code class="rounded bg-ink-800 px-1.5 py-0.5 text-ink-200">false</code> setzen.
-            </p>
-          </div>
-        )
-      }
-
-      <div class:list={['prose-dd', DRAFT && 'mt-10']}>
+      <div class="prose-dd">
         <h2>1. Verantwortlicher</h2>
         <p>
           Verantwortlich für die Datenverarbeitung auf dieser Website ist:
         </p>
+        {/* TODO: Anschrift des Vereins ergänzen, sobald sie vorliegt. */}
         <p>
-          Alexander Dehmel<br />
-          Wolfhaldenstrasse 7<br />
-          9500 Wil SG<br />
-          Schweiz<br />
+          Downhill Deutschland e.V.<br />
           E-Mail: <a href="mailto:alex@downhilldeutschland.de">alex@downhilldeutschland.de</a>
         </p>
 
@@ -148,7 +123,7 @@ const LAST_UPDATED = '29. August 2026';
           berechtigten Interesse beruht, jederzeit widersprechen (Art. 21 DSGVO).
         </p>
         <p>
-          Wenden Sie sich dafür bitte an die unter Ziffer 1 genannte Adresse. Unabhängig davon steht
+          Wenden Sie sich dafür bitte an die unter Ziffer 1 genannten Kontaktdaten. Unabhängig davon steht
           Ihnen ein Beschwerderecht bei einer Datenschutz-Aufsichtsbehörde zu (Art. 77 DSGVO).
         </p>
 

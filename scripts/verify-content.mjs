@@ -22,6 +22,19 @@ const SNAPSHOT = path.join(ROOT, 'migration/snapshot');
 /** Pages whose content was intentionally restructured rather than copied. */
 const RESTRUCTURED = new Set(['/kalender/', '/ranking/', '/community/', '/kontakt/']);
 
+/**
+ * Pages the club has deliberately edited since the migration. The snapshot is no
+ * longer the source of truth for these, so a diff here is expected — but the
+ * reason is spelled out so a real regression still stands out.
+ */
+const EDITED = new Map([
+  [
+    '/impressum/',
+    'responsible party changed to Downhill Deutschland e.V.; the previous ' +
+      'private address was removed on request (2026-08-30)',
+  ],
+]);
+
 const PATHS = [
   '/champions-2026/',
   '/rasen-in-wasen-2026/',
@@ -131,16 +144,20 @@ for (const urlPath of PATHS) {
   const lost = [...oldWords].filter((w) => !newWords.has(w));
   const added = [...newWords].filter((w) => !oldWords.has(w));
 
-  const restructured = RESTRUCTURED.has(urlPath);
-  const status = lost.length === 0 ? 'ok' : restructured ? 'restructured' : 'CHECK';
+  const expected = RESTRUCTURED.has(urlPath) || EDITED.has(urlPath);
+  const status =
+    lost.length === 0 ? 'ok' : EDITED.has(urlPath) ? 'edited' : RESTRUCTURED.has(urlPath) ? 'restructured' : 'CHECK';
   if (status === 'CHECK') problems++;
 
   rows.push([urlPath, status, `-${lost.length}`, `+${added.length}`]);
 
-  if (lost.length && !restructured) {
+  if (EDITED.has(urlPath) && lost.length) {
+    rows.push(['', '  reason:', EDITED.get(urlPath), '']);
+  }
+  if (lost.length && !expected) {
     rows.push(['', '  lost:', lost.slice(0, 25).join(' '), '']);
   }
-  if (added.length && !restructured && process.env.SHOW_ADDED) {
+  if (added.length && !expected && process.env.SHOW_ADDED) {
     rows.push(['', '  added:', added.slice(0, 25).join(' '), '']);
   }
 }

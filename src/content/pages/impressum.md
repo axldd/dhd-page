@@ -1,16 +1,15 @@
 ---
 title: "Impressum"
-description: "Alexander Dehmel Wolfhaldenstrasse 7 9500 Wil SG Schweiz E-Mail: alex@downhilldeutschland.de Haftungsausschluss Der Autor übernimmt keinerlei Gewähr hinsichtlich der inhaltlichen…"
+description: "Impressum von Downhill Deutschland e.V. — Anbieterkennzeichnung, Haftungsausschluss und Urheberrechte."
 wpId: 176
 ---
 
-**Alexander Dehmel**\
-Wolfhaldenstrasse 7\
-9500 Wil SG\
-Schweiz
+<!-- TODO: Anschrift des Vereins ergänzen (in Deutschland nach § 5 DDG Pflicht),
+     ebenso Vertretungsberechtigte(r) und Vereinsregister/Registernummer. -->
 
-**E-Mail:** alex@downhilldeutschland.de\
-\
+**Downhill Deutschland e.V.**
+
+**E-Mail:** alex@downhilldeutschland.de
 
 ## Haftungsausschluss
 
@@ -22,4 +21,4 @@ Verweise und Links auf Webseiten Dritter liegen ausserhalb unseres Verantwortung
 
 ## Urheberrechte
 
-Die Urheber- und alle anderen Rechte an Inhalten, Bildern, Fotos oder anderen Dateien auf der Website gehören ausschliesslich der oben genannten Firma/Person oder den speziell genannten Rechtsinhabern. Für die Reproduktion jeglicher Elemente ist die schriftliche Zustimmung der Urheberrechtsträger im Voraus einzuholen.
+Die Urheber- und alle anderen Rechte an Inhalten, Bildern, Fotos oder anderen Dateien auf der Website gehören ausschliesslich dem oben genannten Verein oder den speziell genannten Rechtsinhabern. Für die Reproduktion jeglicher Elemente ist die schriftliche Zustimmung der Urheberrechtsträger im Voraus einzuholen.

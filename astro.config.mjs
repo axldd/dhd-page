@@ -13,10 +13,10 @@ export default defineConfig({
   integrations: [
     mdx(),
     sitemap({
-      // Redirect stubs and the noindex placeholder don't belong in the sitemap.
+      // Redirect stubs don't belong in the sitemap.
       // Match on the exact path — /community/downhill-konstanz/ is a real page.
       filter: (page) =>
-        !['/feed/', '/downhill-konstanz/', '/datenschutz/'].includes(
+        !['/feed/', '/downhill-konstanz/'].includes(
           new URL(page).pathname,
         ),
     }),

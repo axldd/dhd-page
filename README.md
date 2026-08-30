@@ -90,7 +90,7 @@ Old PDF links keep working because their paths never change.
 - **Regelwerk, Impressum, Kontakt** and the **local crew pages** are Markdown under `src/content/pages/` and `src/content/community/`. Edit and push.
 - **Organisation** (the team) is `src/data/team.yaml` — name, e-mail, photo, bio per person.
 - **Community** groups the crews by region in `src/pages/community/index.astro`.
-- **Datenschutz** is `src/pages/datenschutz.astro`. It holds a draft written from what the site technically does. Once the club has had it reviewed, set `DRAFT = false` at the top of that file (that removes the notice box and lets search engines index it) and delete `/datenschutz/` from the sitemap filter in `astro.config.mjs`.
+- **Impressum und Datenschutz:** the responsible entity is Downhill Deutschland e.V. The club's postal address is still missing — both files carry a `TODO` where it goes, and a German Impressum legally needs one. The Datenschutzerklärung (`src/pages/datenschutz.astro`) describes the site as it is today; if we ever embed something, add a form, or load a font from a CDN, update that text in the same change.
 
 ## Working locally (optional)
 
