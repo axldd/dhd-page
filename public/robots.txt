@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://downhilldeutschland.de/sitemap-index.xml

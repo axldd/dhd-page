@@ -1,0 +1,103 @@
+---
+import { getCollection, getEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import PageHeader from '../../components/PageHeader.astro';
+
+/**
+ * Region grouping and the parenthesised area notes are copied verbatim from the
+ * old WordPress Community page — do not reword them.
+ */
+const regions = [
+  {
+    name: 'Südwest',
+    crews: [
+      { slug: 'downhill-konstanz' },
+      { slug: 'freiburg-freeride-crew' },
+      { slug: 'team-schwabenteuer', area: 'Region Stuttgart' },
+      { slug: 'rollrunde-reutlingen' },
+      { slug: 'castle-hill-community', area: 'Südhessen/Nordbaden/Odenwald' },
+    ],
+  },
+  { name: 'Südost', crews: [{ slug: 'frankendh' }, { slug: 'sektorf-skating' }] },
+  { name: 'Nord', crews: [{ slug: 'dopamania-hamburg' }] },
+];
+
+const page = await getEntry('pages', 'community');
+if (!page) throw new Error('src/content/pages/community.md is missing');
+
+const crews = await getCollection('community');
+const bySlug = new Map(crews.map((crew) => [crew.id, crew]));
+
+const grouped = regions.map((region) => ({
+  ...region,
+  crews: region.crews.flatMap((ref) => {
+    const crew = bySlug.get(ref.slug);
+    return crew ? [{ ...ref, crew }] : [];
+  }),
+}));
+
+const listed = new Set(grouped.flatMap((r) => r.crews.map((c) => c.crew.id)));
+const unlisted = crews.filter((crew) => !listed.has(crew.id));
+---
+
+<Base title="Community" description={page.data.description}>
+  <PageHeader
+    eyebrow="Lokale Gruppen"
+    title="Community"
+    lead="In ganz Deutschland gibt es lokale Gruppen und Vereine, die sich regelmäßig treffen um unseren Sport an ihren lokalen Strecken auszuüben. Egal ob ihr schon länger dabei seid und mit Gleichgesinnten Ausfahrten organisieren wollt oder gerade erst anfangt und Hilfestellung beim Erlernen des Sports sucht: Hier findet ihr alle lokalen Gruppen sowie einen Weg sie zu kontaktieren."
+  />
+
+  <div class="container-page space-y-14 py-14 md:py-20">
+    {
+      [...grouped, ...(unlisted.length ? [{ name: 'Weitere', crews: unlisted.map((crew) => ({ crew })) }] : [])].map(
+        (region) =>
+          region.crews.length > 0 && (
+            <section aria-labelledby={`region-${region.name}`}>
+              <h2 id={`region-${region.name}`} class="eyebrow">
+                <span class="h-px w-6 bg-brand-bright" aria-hidden="true" />
+                {region.name}
+              </h2>
+
+              <ul class="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                {region.crews.map(({ crew, area }: { crew: (typeof crews)[number]; area?: string }) => (
+                  <li class="group relative overflow-hidden rounded-xl border border-ink-800 bg-ink-850 transition-colors hover:border-brand">
+                    <div class="aspect-16/10 overflow-hidden bg-ink-800">
+                      {crew.data.cover ? (
+                        <Image
+                          src={crew.data.cover}
+                          alt=""
+                          widths={[320, 480, 768]}
+                          sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 100vw"
+                          class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                        />
+                      ) : (
+                        <div class="flex h-full w-full items-center justify-center bg-linear-to-br from-ink-800 to-ink-950">
+                          <span class="font-display text-4xl font-black text-ink-700">DD</span>
+                        </div>
+                      )}
+                    </div>
+                    <div class="p-5">
+                      <h3 class="font-bold leading-snug text-ink-50">
+                        <a href={`/community/${crew.id}/`} class="after:absolute after:inset-0 group-hover:text-brand-bright">
+                          {crew.data.title}
+                        </a>
+                      </h3>
+                      {area && <p class="mt-1 text-sm text-ink-400">{area}</p>}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ),
+      )
+    }
+
+    <p class="max-w-2xl border-t border-ink-800 pt-10 text-sm leading-relaxed text-ink-400">
+      Ihr seid eine lokale Gruppe und fehlt hier? Schreibt uns über <a
+        href="/kontakt/"
+        class="font-semibold text-brand-bright hover:text-ink-50">Kontakt</a
+      > oder auf Instagram.
+    </p>
+  </div>
+</Base>

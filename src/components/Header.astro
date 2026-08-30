@@ -1,0 +1,96 @@
+---
+import logo from '../assets/dd-logo-horizontal-white.png';
+import { Image } from 'astro:assets';
+
+const nav = [
+  { href: '/kalender/', label: 'Events' },
+  { href: '/ranking/', label: 'Ranking' },
+  { href: '/regeln/', label: 'Regelwerk' },
+  { href: '/community/', label: 'Community' },
+  { href: '/uber-downhill-deutschland/', label: 'Organisation' },
+];
+
+const path = Astro.url.pathname;
+const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
+---
+
+<header class="sticky top-0 z-50 border-b border-ink-800/80 bg-ink-950/85 backdrop-blur-md">
+  <div class="container-page flex h-16 items-center gap-4 md:h-20">
+    <a href="/" class="flex shrink-0 items-center gap-3" aria-label="Downhill Deutschland, zur Startseite">
+      <Image src={logo} alt="Downhill Deutschland" width={260} densities={[1, 2]} class="h-7 w-auto md:h-9" loading="eager" />
+    </a>
+
+    <nav class="ml-auto hidden items-center gap-1 lg:flex" aria-label="Hauptnavigation">
+      {
+        nav.map((item) => (
+          <a
+            href={item.href}
+            aria-current={isActive(item.href) ? 'page' : undefined}
+            class:list={[
+              'relative rounded-md px-3 py-2 text-sm font-semibold tracking-wide transition-colors',
+              isActive(item.href) ? 'text-ink-50' : 'text-ink-300 hover:text-ink-50',
+            ]}
+          >
+            {item.label}
+            {isActive(item.href) && (
+              <span class="absolute inset-x-3 -bottom-px h-0.5 rounded-full bg-brand" aria-hidden="true" />
+            )}
+          </a>
+        ))
+      }
+      <a
+        href="https://www.instagram.com/downhilldeutschland"
+        rel="me noopener"
+        class="ml-2 inline-flex items-center gap-2 rounded-md border border-ink-700 px-3 py-2 text-sm font-semibold text-ink-100 transition-colors hover:border-brand hover:text-brand-bright"
+      >
+        <svg viewBox="0 0 24 24" class="h-4 w-4" fill="currentColor" aria-hidden="true">
+          <path
+            d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16Zm0 3.68a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32Zm0 10.16a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm7.85-10.4a1.44 1.44 0 1 1-2.88 0 1.44 1.44 0 0 1 2.88 0Z"
+          ></path>
+        </svg>
+        Instagram
+      </a>
+    </nav>
+
+    <!-- Mobile: a details/summary disclosure, so the nav needs no JavaScript. -->
+    <details class="group relative ml-auto lg:hidden">
+      <summary
+        class="flex h-10 w-10 cursor-pointer list-none items-center justify-center rounded-md border border-ink-700 text-ink-100 transition-colors hover:border-brand [&::-webkit-details-marker]:hidden"
+        aria-label="Menü"
+      >
+        <svg viewBox="0 0 24 24" class="h-5 w-5 group-open:hidden" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M4 7h16M4 12h16M4 17h16" stroke-linecap="round"></path>
+        </svg>
+        <svg viewBox="0 0 24 24" class="hidden h-5 w-5 group-open:block" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="m6 6 12 12M18 6 6 18" stroke-linecap="round"></path>
+        </svg>
+      </summary>
+      <nav
+        class="absolute right-0 top-12 w-60 overflow-hidden rounded-xl border border-ink-700 bg-ink-850 shadow-2xl shadow-black/50"
+        aria-label="Hauptnavigation"
+      >
+        {
+          nav.map((item) => (
+            <a
+              href={item.href}
+              aria-current={isActive(item.href) ? 'page' : undefined}
+              class:list={[
+                'block border-b border-ink-800 px-4 py-3 text-sm font-semibold transition-colors hover:bg-ink-800',
+                isActive(item.href) ? 'text-brand-bright' : 'text-ink-100',
+              ]}
+            >
+              {item.label}
+            </a>
+          ))
+        }
+        <a
+          href="https://www.instagram.com/downhilldeutschland"
+          rel="me noopener"
+          class="block px-4 py-3 text-sm font-semibold text-ink-300 transition-colors hover:bg-ink-800 hover:text-ink-50"
+        >
+          Instagram ↗
+        </a>
+      </nav>
+    </details>
+  </div>
+</header>

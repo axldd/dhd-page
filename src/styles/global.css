@@ -1,0 +1,195 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+
+/* Archivo variable, self-hosted (no Google Fonts request -> no GDPR problem). */
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 400 900;
+  font-stretch: 75% 125%;
+  font-display: swap;
+  src: url('/fonts/archivo-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+    U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 400 900;
+  font-stretch: 75% 125%;
+  font-display: swap;
+  src: url('/fonts/archivo-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+    U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0,
+    U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@theme {
+  /* Brand red sampled straight from the logo (#CA4748), plus a dark neutral
+     ramp that keeps the old site's charcoal feel but with more depth. */
+  --color-brand: #ca4748;
+  --color-brand-bright: #e0605d;
+  --color-brand-deep: #8f2f30;
+
+  --color-ink-950: #121415;
+  --color-ink-900: #17191b;
+  --color-ink-850: #1d2023;
+  --color-ink-800: #24282b;
+  --color-ink-700: #333a3e;
+  --color-ink-600: #4a5257;
+  --color-ink-400: #8d979d;
+  --color-ink-300: #b3bbc0;
+  --color-ink-100: #e8eaeb;
+  --color-ink-50: #f6f7f7;
+
+  --font-display: 'Archivo', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-sans: 'Archivo', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  body {
+    background-color: var(--color-ink-900);
+    color: var(--color-ink-100);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-wrap: pretty;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  ::selection {
+    background: var(--color-brand);
+    color: white;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brand-bright);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+}
+
+@utility container-page {
+  width: 100%;
+  margin-inline: auto;
+  max-width: 78rem;
+  padding-inline: 1.25rem;
+  @media (width >= 48rem) {
+    padding-inline: 2rem;
+  }
+}
+
+/* Section eyebrow: small red-ruled label above a heading. */
+@utility eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-brand-bright);
+}
+
+/* Long-form article styling for everything that comes out of markdown. */
+@utility prose-dd {
+  @apply prose prose-invert max-w-none;
+  --tw-prose-body: var(--color-ink-300);
+  --tw-prose-headings: var(--color-ink-50);
+  --tw-prose-bold: var(--color-ink-50);
+  --tw-prose-links: var(--color-brand-bright);
+  --tw-prose-quotes: var(--color-ink-100);
+  --tw-prose-quote-borders: var(--color-brand);
+  --tw-prose-hr: var(--color-ink-700);
+  --tw-prose-counters: var(--color-ink-400);
+  --tw-prose-bullets: var(--color-brand);
+  --tw-prose-captions: var(--color-ink-400);
+  --tw-prose-td-borders: var(--color-ink-700);
+  --tw-prose-th-borders: var(--color-ink-600);
+
+  a {
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+    text-decoration-color: color-mix(in srgb, var(--color-brand-bright) 45%, transparent);
+    transition: color 0.15s ease;
+  }
+  a:hover {
+    color: var(--color-ink-50);
+    text-decoration-color: var(--color-brand-bright);
+  }
+  img {
+    border-radius: 0.5rem;
+    width: 100%;
+  }
+  h2 {
+    margin-top: 2.5em;
+    font-size: 1.6em;
+  }
+  h2::after {
+    content: '';
+    display: block;
+    width: 2.5rem;
+    height: 3px;
+    margin-top: 0.5rem;
+    background: var(--color-brand);
+  }
+  hr {
+    margin-block: 3rem;
+  }
+
+  /* Migrated pages link their PDFs as plain markdown links. Give those the
+     weight they had as WordPress "file blocks". */
+  a[href$='.pdf'] {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    border: 1px solid var(--color-ink-700);
+    border-radius: 0.5rem;
+    padding: 0.7rem 1.1rem;
+    font-weight: 700;
+    color: var(--color-ink-50);
+    text-decoration: none;
+    transition:
+      border-color 0.15s ease,
+      color 0.15s ease;
+  }
+  a[href$='.pdf']::before {
+    content: '';
+    width: 1rem;
+    height: 1rem;
+    background: currentColor;
+    /* download arrow */
+    mask: center / contain no-repeat
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8 2v9m0 0 3.5-3.5M8 11 4.5 7.5M2.5 13.5h11'/%3E%3C/svg%3E");
+  }
+  a[href$='.pdf']:hover {
+    border-color: var(--color-brand);
+    color: var(--color-brand-bright);
+  }
+}

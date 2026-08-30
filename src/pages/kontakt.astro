@@ -1,0 +1,57 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+
+/**
+ * The WordPress /kontakt/ page was empty (its form plugin was removed), so the
+ * URL is kept alive with the contact addresses that the Organisation page already
+ * publishes. Update here and on /uber-downhill-deutschland/ together.
+ */
+const contacts = [
+  { name: 'Ulrich Becker', email: 'ulrich@downhilldeutschland.de' },
+  { name: 'Brini', email: 'brini@downhilldeutschland.de' },
+  { name: 'Chris', email: 'chris@downhilldeutschland.de' },
+  { name: 'Gago', email: 'gago@downhilldeutschland.de' },
+  { name: 'Alex', email: 'alex@downhilldeutschland.de' },
+];
+---
+
+<Base
+  title="Kontakt"
+  description="So erreicht ihr Downhill Deutschland — per E-Mail oder über Instagram."
+>
+  <PageHeader
+    eyebrow="Schreibt uns"
+    title="Kontakt"
+    lead="Fragen zu Rennen, Regelwerk oder Ranking? Meldet euch direkt bei uns."
+  />
+
+  <div class="container-page py-14 md:py-20">
+    <ul class="grid max-w-3xl gap-3 sm:grid-cols-2">
+      {
+        contacts.map((person) => (
+          <li class="group relative rounded-xl border border-ink-800 bg-ink-850 p-5 transition-colors hover:border-brand">
+            <p class="font-bold text-ink-50">{person.name}</p>
+            <a
+              href={`mailto:${person.email}`}
+              class="mt-1 block break-all text-sm text-ink-400 transition-colors after:absolute after:inset-0 group-hover:text-brand-bright"
+            >
+              {person.email}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <p class="mt-10 max-w-2xl text-sm leading-relaxed text-ink-400">
+      Wer wir sind, steht auf der Seite <a
+        href="/uber-downhill-deutschland/"
+        class="font-semibold text-brand-bright hover:text-ink-50">Organisation</a
+      >. Am schnellsten erreicht ihr uns meist über <a
+        href="https://www.instagram.com/downhilldeutschland"
+        rel="me noopener"
+        class="font-semibold text-brand-bright hover:text-ink-50">Instagram</a
+      >.
+    </p>
+  </div>
+</Base>

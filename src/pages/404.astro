@@ -1,0 +1,33 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Seite nicht gefunden" noindex>
+  <div class="container-page flex min-h-[60svh] flex-col items-start justify-center py-20">
+    <p class="font-display text-8xl font-black leading-none text-brand md:text-9xl">404</p>
+    <h1 class="mt-6 text-3xl font-black md:text-5xl">Diese Seite gibt es nicht (mehr)</h1>
+    <p class="mt-4 max-w-lg text-lg leading-relaxed text-ink-400">
+      Vielleicht hat sich die Adresse verschrieben, oder der Link ist alt. Von hier kommt ihr weiter:
+    </p>
+    <div class="mt-8 flex flex-wrap gap-3">
+      <a
+        href="/"
+        class="inline-flex items-center rounded-lg bg-brand px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-brand-bright"
+      >
+        Zur Startseite
+      </a>
+      <a
+        href="/kalender/"
+        class="inline-flex items-center rounded-lg border border-ink-600 px-5 py-3 text-sm font-bold text-ink-50 transition-colors hover:border-brand hover:text-brand-bright"
+      >
+        Events
+      </a>
+      <a
+        href="/ranking/"
+        class="inline-flex items-center rounded-lg border border-ink-600 px-5 py-3 text-sm font-bold text-ink-50 transition-colors hover:border-brand hover:text-brand-bright"
+      >
+        Ranking
+      </a>
+    </div>
+  </div>
+</Base>

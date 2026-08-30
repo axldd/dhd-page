@@ -1,0 +1,28 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import SeasonTimeline from '../components/SeasonTimeline.astro';
+
+const seasons = (await getCollection('seasons')).sort((a, b) => b.data.year - a.data.year);
+---
+
+<Base
+  title="Events"
+  description="Alle Rennen der Deutschen Meisterschaft im Downhill Skateboarding und Streetluge — Termine, Orte und Punktewertung."
+>
+  <PageHeader
+    eyebrow="Termine"
+    title="Events"
+    lead="Die Rennen der Deutschen Meisterschaft, Saison für Saison. Abgesagte Events bleiben stehen, damit die Historie nachvollziehbar bleibt."
+  />
+
+  {/*
+    The old page also embedded an international "Eventkalender" (the ics-calendar
+    WP plugin pulling an ICS feed from skatedownhills.com). Dropped on request —
+    it isn't needed any more. Don't reintroduce it without asking.
+  */}
+  <div class="container-page py-14 md:py-20">
+    <SeasonTimeline seasons={seasons} />
+  </div>
+</Base>

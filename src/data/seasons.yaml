@@ -1,0 +1,48 @@
+# Race seasons shown on /kalender/.
+#
+# Seeded verbatim from the old WordPress "Events" page - names, dates, locations
+# and points are copied exactly as they were written there. Do not invent values:
+# leave a field out if the club has not published it.
+#
+# status: upcoming | completed | canceled
+#   Set `canceled` instead of deleting an event, so the history stays visible.
+
+- year: 2026
+  title: Deutsche Meisterschaft 2026
+  note: Es gibt ein Streichergebnis
+  events:
+    - name: Rasen in Wasen
+      location: Wasenweiler
+      dates: 17.–19. April
+      points: <1000P
+      status: completed
+    - name: Großerlach Freeride & Race
+      dates: 09.–10. Mai
+      points: <1000P
+      status: canceled
+      url: /grosserlach-2026/
+    - name: Teichfest DH
+      location: Lichtenhain
+      dates: 03.–05. Juli
+      points: 1000P
+      status: completed
+
+- year: 2025
+  title: Deutsche Meisterschaft 2025
+  events:
+    - name: Großerlach
+      dates: 17.–18. Mai
+      points: 650P
+      status: completed
+    - name: Teutodownhill
+      dates: 05.–07. September
+      points: 1000P
+      status: completed
+
+- year: 2024
+  title: Deutsche Meisterschaft 2024
+  events:
+    - name: Großerlach
+      status: completed
+    - name: Teutodownhill
+      status: completed

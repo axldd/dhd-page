@@ -1,0 +1,91 @@
+# URL inventory for downhilldeutschland.de
+# Source: wp-sitemap.xml (all 4 sub-sitemaps) + wget mirror, captured 2026-08-29.
+# Format: <status> <path>
+#   KEEP   - must resolve on the new static site at exactly this path
+#   REDIR  - old path that must 301/meta-redirect to the target noted after "->"
+#   DROP   - intentionally not migrated (signed off by Alex on 2026-08-29)
+#
+# --- Pages ---------------------------------------------------------------
+KEEP  /
+KEEP  /kalender/
+KEEP  /ranking/
+KEEP  /regeln/
+KEEP  /community/
+KEEP  /community/castle-hill-community/
+KEEP  /community/dopamania-hamburg/
+KEEP  /community/downhill-konstanz/
+KEEP  /community/frankendh/
+KEEP  /community/freiburg-freeride-crew/
+KEEP  /community/rollrunde-reutlingen/
+KEEP  /community/sektorf-skating/
+KEEP  /community/team-schwabenteuer/
+KEEP  /uber-downhill-deutschland/
+KEEP  /impressum/
+KEEP  /grosserlach-2026/
+KEEP  /kontakt/
+#
+# --- Posts ---------------------------------------------------------------
+KEEP  /champions-2026/
+KEEP  /rasen-in-wasen-2026/
+KEEP  /grosserlach-2026-registration/
+KEEP  /die-deutschen-meisterinnen-und-meister-2025/
+KEEP  /jahresumfrage-2024/
+KEEP  /world-skate-games-2024/
+KEEP  /die-deutschen-meisterinnen-und-meister-2024/
+KEEP  /groserlach-race-2024/
+KEEP  /deutsche-meisterschaft-2024/
+KEEP  /ranking-fur-2023-qualifikation-fur-die-wm-2024-in-italien/
+#
+# --- Feeds ---------------------------------------------------------------
+KEEP  /rss.xml
+KEEP  /feed/                     # WP feed path, kept as a redirect page to /rss.xml
+#
+# --- Legacy redirects ----------------------------------------------------
+REDIR /downhill-konstanz/        -> /community/downhill-konstanz/   (was a 301 on WP too)
+#
+# --- New on the static site ----------------------------------------------
+KEEP  /datenschutz/              # scaffolded, legal text pending from the club
+KEEP  /404.html
+KEEP  /sitemap-index.xml
+#
+# --- Uploads that are deep-linked (exact paths must keep working) --------
+KEEP  /wp-content/uploads/2026/01/2025-german-champs.pdf
+KEEP  /wp-content/uploads/2024/09/Gesamtwertung-DM-2024.pdf
+KEEP  /wp-content/uploads/2024/08/DM-Wertung-2024-1.pdf
+KEEP  /wp-content/uploads/2024/08/Deutsche-Meisterschaft-2024.pdf
+KEEP  /wp-content/uploads/2024/06/Regelwerk_final.pdf
+KEEP  /wp-content/uploads/2025/08/Regelwerk_Downhill-Deutschland-2025.pdf
+KEEP  /wp-content/uploads/2025/02/Skateboarding-Men-Race-results.pdf
+KEEP  /wp-content/uploads/2025/02/Skateboarding-Men-Time-trials.pdf
+KEEP  /wp-content/uploads/2025/02/Skateboarding-Men-Time-trials-1.pdf
+KEEP  /wp-content/uploads/2025/02/Skateboarding-Women-Race-results.pdf
+KEEP  /wp-content/uploads/2025/02/Skateboarding-Women-Time-trials.pdf
+KEEP  /wp-content/uploads/2025/02/Streetluge-Men-Race-results.pdf
+KEEP  /wp-content/uploads/2025/02/Streetluge-Men-Time-trials.pdf
+KEEP  /wp-content/uploads/2025/02/Streetluge-Women-Race-results.pdf
+KEEP  /wp-content/uploads/2025/02/Streetluge-Women-Time-trials.pdf
+KEEP  /wp-content/uploads/2026/04/RiW-26-K.O.-German-Open-Results.pdf
+KEEP  /wp-content/uploads/2026/04/RiW-26-K.O.-German-Open-Results-1.pdf
+KEEP  /wp-content/uploads/2026/04/RiW-26-K.O.-Finta-Results.xlsx.pdf
+KEEP  /wp-content/uploads/2026/04/RiW-26-K.O.-Masters-Results.xlsx.pdf
+KEEP  /wp-content/uploads/2026/04/RiW-26-K.O.-Open-International-Results.pdf
+KEEP  /wp-content/uploads/2024/04/DD_Logo_V2_1.weiss_-4.png
+#   (plus every image referenced from a migrated post or page - the parity
+#    check enumerates these from the built HTML rather than listing them here)
+#
+# --- Dropped (signed off 2026-08-29) -------------------------------------
+DROP  /author/alex-dehmel/       # WP author archive
+DROP  /author/brini/             # WP author archive
+DROP  /author/chris/             # WP author archive
+DROP  /category/news/            # only category, identical to the home feed
+DROP  /shop/                     # WooCommerce, no shop on the static site
+DROP  /my-account/               # WooCommerce
+DROP  /ticket-checkout/          # Event Tickets / WooCommerce checkout
+DROP  /order-complete/           # Event Tickets / WooCommerce
+DROP  /events/                   # The Events Calendar plugin archive
+DROP  /comments/feed/            # comments are disabled on the new site
+DROP  /<post-slug>/feed/         # per-post comment feeds (10 URLs)
+DROP  /author/<slug>/feed/       # per-author feeds (3 URLs)
+DROP  /category/news/feed/
+DROP  /wp-json/**                # WordPress REST API
+DROP  /?p=<id>                   # WP query-string permalinks (all had pretty equivalents)

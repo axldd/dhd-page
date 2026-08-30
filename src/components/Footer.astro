@@ -1,0 +1,82 @@
+---
+import logo from '../assets/dd-logo-white.png';
+import { Image } from 'astro:assets';
+
+const year = new Date().getFullYear();
+
+const sitemap = [
+  {
+    heading: 'Sport',
+    links: [
+      { href: '/kalender/', label: 'Events' },
+      { href: '/ranking/', label: 'Ranking' },
+      { href: '/regeln/', label: 'Regelwerk' },
+    ],
+  },
+  {
+    heading: 'Verband',
+    links: [
+      { href: '/community/', label: 'Community' },
+      { href: '/uber-downhill-deutschland/', label: 'Organisation' },
+      { href: '/kontakt/', label: 'Kontakt' },
+    ],
+  },
+  {
+    heading: 'Rechtliches',
+    links: [
+      { href: '/impressum/', label: 'Impressum' },
+      { href: '/datenschutz/', label: 'Datenschutz' },
+      { href: '/rss.xml', label: 'RSS-Feed' },
+    ],
+  },
+];
+---
+
+<footer class="mt-24 border-t border-ink-800 bg-ink-950">
+  <div class="container-page py-14">
+    <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-[minmax(0,1.4fr)_repeat(3,minmax(0,1fr))]">
+      <div>
+        <Image src={logo} alt="Downhill Deutschland" width={120} densities={[1, 2]} class="h-16 w-auto" loading="lazy" />
+        <p class="mt-5 max-w-xs text-sm leading-relaxed text-ink-400">
+          Downhill Skateboarding und Streetluge in Deutschland — Regelwerk, nationale Rangliste und
+          deutsche Mannschaft, innerhalb der Skateboardkommission des DRIV.
+        </p>
+        <a
+          href="https://www.instagram.com/downhilldeutschland"
+          rel="me noopener"
+          class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-ink-100 transition-colors hover:text-brand-bright"
+        >
+          <svg viewBox="0 0 24 24" class="h-4 w-4" fill="currentColor" aria-hidden="true">
+            <path
+              d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16Zm0 3.68a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32Zm0 10.16a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm7.85-10.4a1.44 1.44 0 1 1-2.88 0 1.44 1.44 0 0 1 2.88 0Z"
+            ></path>
+          </svg>
+          @downhilldeutschland
+        </a>
+      </div>
+
+      {
+        sitemap.map((group) => (
+          <nav aria-labelledby={`footer-${group.heading}`}>
+            <h2 id={`footer-${group.heading}`} class="text-xs font-bold uppercase tracking-[0.18em] text-ink-400">
+              {group.heading}
+            </h2>
+            <ul class="mt-4 space-y-2.5">
+              {group.links.map((link) => (
+                <li>
+                  <a href={link.href} class="text-sm text-ink-300 transition-colors hover:text-brand-bright">
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        ))
+      }
+    </div>
+
+    <p class="mt-12 border-t border-ink-800 pt-6 text-xs text-ink-600">
+      © {year} Downhill Deutschland
+    </p>
+  </div>
+</footer>

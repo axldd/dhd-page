@@ -1,0 +1,22 @@
+---
+/**
+ * WordPress served the news feed at /feed/. Feed readers and old bookmarks still
+ * point here, so keep the URL alive and send them to /rss.xml.
+ */
+const target = '/rss.xml';
+---
+
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <title>Feed umgezogen — Downhill Deutschland</title>
+    <meta name="robots" content="noindex" />
+    <meta http-equiv="refresh" content={`0; url=${target}`} />
+    <link rel="canonical" href={new URL(target, Astro.site)} />
+    <link rel="alternate" type="application/rss+xml" title="Downhill Deutschland — News" href={target} />
+  </head>
+  <body style="background:#17191b;color:#e8eaeb;font-family:system-ui,sans-serif;padding:2rem">
+    <p>Der Feed liegt jetzt unter <a href={target} style="color:#e0605d">{target}</a>.</p>
+  </body>
+</html>

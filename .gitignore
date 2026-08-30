@@ -1,0 +1,16 @@
+node_modules/
+dist/
+.astro/
+.DS_Store
+npm-debug.log*
+
+# The raw WordPress backup - far too large for git, keep it locally / offline.
+backup-*.tar.gz
+# The wget mirror of the old site: 69 MB of rendered WordPress HTML. Kept
+# locally (and inside the tar.gz) as the ground truth for the content check,
+# but it does not belong in the repo.
+migration/snapshot/
+migration/wget.log
+# The full uploads dump, extracted from the backup. Everything the site actually
+# uses has been imported into src/assets/ and public/wp-content/.
+migration/uploads/

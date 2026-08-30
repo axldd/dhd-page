@@ -1,0 +1,71 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+
+/**
+ * Ranking PDFs. `file` is the original WordPress upload path and must not change
+ * — these links are shared around and have to keep resolving forever.
+ * To add a season: drop the PDF into public/wp-content/uploads/<year>/ and add
+ * an entry at the top of this list.
+ */
+const rankings = [
+  {
+    year: '2025',
+    label: 'German Champs 2025',
+    file: '/wp-content/uploads/2026/01/2025-german-champs.pdf',
+  },
+  {
+    year: '2024',
+    label: 'Gesamtwertung DM 2024',
+    file: '/wp-content/uploads/2024/09/Gesamtwertung-DM-2024.pdf',
+  },
+];
+---
+
+<Base
+  title="Ranking"
+  description="Die nationale Rangliste von Downhill Deutschland: Gesamtwertungen der Deutschen Meisterschaft als PDF."
+>
+  <PageHeader
+    eyebrow="Nationale Rangliste"
+    title="Ranking"
+    lead="Die Gesamtwertungen der Deutschen Meisterschaft. Ältere Wertungen bleiben unter ihrer ursprünglichen Adresse abrufbar."
+  />
+
+  <div class="container-page py-14 md:py-20">
+    <ul class="grid gap-4 sm:grid-cols-2">
+      {
+        rankings.map((entry) => (
+          <li class="group relative flex items-center gap-5 rounded-xl border border-ink-800 bg-ink-850 p-6 transition-colors hover:border-brand">
+            <span class="font-display text-4xl font-black leading-none text-ink-700 transition-colors group-hover:text-brand" aria-hidden="true">
+              {entry.year}
+            </span>
+            <span class="min-w-0 flex-1">
+              <span class="block font-bold text-ink-50">
+                <a href={entry.file} download class="after:absolute after:inset-0">
+                  {entry.label}
+                </a>
+              </span>
+              <span class="mt-1 block text-sm text-ink-400">PDF herunterladen</span>
+            </span>
+            <svg
+              viewBox="0 0 16 16"
+              class="h-5 w-5 shrink-0 text-ink-600 transition-colors group-hover:text-brand-bright"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              aria-hidden="true"
+            >
+              <path d="M8 2v9m0 0 3.5-3.5M8 11 4.5 7.5M2.5 13.5h11" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </li>
+        ))
+      }
+    </ul>
+
+    <p class="mt-10 max-w-2xl text-sm leading-relaxed text-ink-400">
+      Einzelergebnisse der World Skate Games 2024 sowie die Ergebnislisten einzelner Rennen findet
+      ihr in den jeweiligen <a href="/" class="font-semibold text-brand-bright hover:text-ink-50">News-Beiträgen</a>.
+    </p>
+  </div>
+</Base>
