@@ -4,14 +4,15 @@ description: "Impressum von Downhill Deutschland e.V. — Anbieterkennzeichnung,
 wpId: 176
 ---
 
-<!-- TODO: noch offen — Vereinsregister und Registernummer
-     (z. B. "Amtsgericht Stuttgart, VR 12345"). -->
-
 **Downhill Deutschland e.V.**\
 Reinhold-Maier-Str. 25\
 71642 Ludwigsburg
 
-**Vertreten durch:** Ulrich Becker (Vorstand)
+**Vertreten durch:** Ulrich Becker (1. Vorsitzender) und Sabrina Luci (2. Vorsitzende).\
+Die beiden Vorsitzenden vertreten den Verein gemeinsam.
+
+**Registergericht:** Amtsgericht Stuttgart\
+**Registernummer:** VR 727763
 
 **E-Mail:** alex@downhilldeutschland.de
 
