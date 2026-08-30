@@ -9,8 +9,8 @@
  *
  * Rules this script must never break (see CLAUDE.md):
  *   - wording is copied verbatim, never rewritten
- *   - every file that might be deep-linked keeps its exact original path under
- *     public/wp-content/uploads/...
+ *   - PDFs keep their exact original path under public/wp-content/uploads/, and
+ *     stay byte-identical, because those links get shared around
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -23,8 +23,9 @@ const SITE = 'https://downhilldeutschland.de';
 const UPLOADS_SRC = path.join(ROOT, 'migration/uploads');
 // Non-image files (PDFs) keep their exact legacy path and stay byte-identical.
 const FILES_DEST = path.join(ROOT, 'public/wp-content/uploads');
-// Images are downscaled into src/assets so Astro can optimize them. A build hook
-// re-emits them under /wp-content/uploads/ as well, so legacy URLs keep working.
+// Images are downscaled into src/assets so Astro can optimize them and serve them
+// as hashed files. Their old /wp-content/uploads/ URLs are deliberately not kept.
+// Note the dated subfolders are load-bearing: two photos are both named open.jpg.
 const IMAGES_DEST = path.join(ROOT, 'src/assets/uploads');
 /** Web-sane ceiling; the untouched originals live on in the tar.gz backup. */
 const MAX_EDGE = 2200;
@@ -373,8 +374,9 @@ for (const page of pages) {
   written.push(write(path.join(dir, `${page.slug}.md`), `${fm}\n${pageBody}\n`));
 }
 
-// Deep-linked files that no page happens to <a href> any more, but that people
-// have shared on Instagram / in chats. These must keep resolving.
+// Deep-linked PDFs that no page happens to <a href> any more, but that people
+// have shared on Instagram / in chats. These must keep resolving at their exact
+// WordPress path. (Legacy *image* URLs are not preserved - see migration/REPORT.md.)
 for (const extra of [
   '2024/06/Regelwerk_final.pdf',
   '2024/08/DM-Wertung-2024-1.pdf',
@@ -393,7 +395,6 @@ for (const extra of [
   '2026/04/RiW-26-K.O.-Finta-Results.xlsx.pdf',
   '2026/04/RiW-26-K.O.-Masters-Results.xlsx.pdf',
   '2026/04/RiW-26-K.O.-Open-International-Results.pdf',
-  '2024/04/DD_Logo_V2_1.weiss_-4.png',
 ]) {
   await copyUpload(extra);
 }

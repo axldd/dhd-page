@@ -3,7 +3,6 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import mdx from '@astrojs/mdx';
 import tailwindcss from '@tailwindcss/vite';
-import legacyUploads from './src/integrations/legacy-uploads.mjs';
 import rehypeDemoteH1 from './src/plugins/rehype-demote-h1.mjs';
 
 export default defineConfig({
@@ -21,7 +20,6 @@ export default defineConfig({
           new URL(page).pathname,
         ),
     }),
-    legacyUploads(),
   ],
   markdown: {
     rehypePlugins: [rehypeDemoteH1],

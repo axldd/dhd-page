@@ -78,8 +78,23 @@ with different addresses.
 **Photos were downscaled to max 2200 px on import.** The originals ran to 17 MB each;
 the whole uploads folder was 212 MB, which does not belong in a Git repo. The
 untouched originals stay in the tar.gz backup. PDFs were *not* touched — all 20 are
-byte-identical. Old image URLs under `/wp-content/uploads/…` still resolve: the build
-mirrors every imported image back to its original path.
+byte-identical.
+
+**Legacy *image* URLs were dropped on 2026-08-29** (Alex's call). Photos had been
+mirrored back to their old `/wp-content/uploads/…` paths by a build hook; that cost
+a 46-line integration and ~18 MB of duplicated images in every deploy, to protect
+the least likely thing anyone deep-linked. `dist/` went from 62 MB to 44 MB and
+`src/integrations/legacy-uploads.mjs` is gone. Photos now live only in
+`src/assets/uploads/<year>/<month>/` and are served as optimized, hashed files.
+
+What is still pinned to its exact WordPress path: **the 20 PDFs**, plus every page
+and post URL. Those are the ones that actually get pasted into chats and sit in
+Google's index.
+
+A full flatten of `src/assets/uploads/` into `src/assets/` was considered and
+rejected: `2024/09/open.jpg` and `2026/07/open.jpg` are different photos with the
+same filename, so flattening would silently clobber one. New photos still go
+straight into `src/assets/`.
 
 **Event statuses in `seasons.yaml` are derived from the dates**, since the old page
 didn't state them. Both 2026 races are marked `completed`, Großerlach 2026

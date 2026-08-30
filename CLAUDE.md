@@ -54,7 +54,7 @@ markdown/data in git  →  push to main  →  Action builds Astro  →  GitHub P
 - `/kalender/` — the old "Eventkalender" (the `ics-calendar` WP plugin rendering an ICS feed from skatedownhills.com via `admin-ajax.php`) was **dropped on Alex's instruction on 2026-08-29** — it is not needed any more. The page is the season timeline only. Don't reintroduce the embed without asking.
 - `/ranking/` links season PDFs, e.g. `/wp-content/uploads/2026/01/2025-german-champs.pdf` and `/wp-content/uploads/2024/09/Gesamtwertung-DM-2024.pdf` — these exact paths must keep working. All 20 migrated PDFs are byte-identical to the backup.
 - Logo assets in `src/assets/`: `dd-logo-horizontal-white.png` (header), `dd-logo-white.png` (footer, red mark + white wordmark), `dd-logo.png` (full colour). Brand red is `#CA4748`, sampled from the logo.
-- Media: images live in `src/assets/uploads/<original path>` (downscaled to 2200 px on import) and Astro optimizes them. A build hook (`src/integrations/legacy-uploads.mjs`) mirrors them into `dist/wp-content/uploads/...` so the old URLs keep resolving. Non-images (PDFs) sit in `public/wp-content/uploads/` untouched.
+- Media: images live in `src/assets/uploads/<year>/<month>/` (downscaled to 2200 px on import) and Astro optimizes them into hashed files. **Legacy image URLs are deliberately not preserved** — dropped on 2026-08-29 to save ~18 MB per deploy and a build hook; only PDFs are pinned to their WordPress paths. New photos go straight into `src/assets/`. Keep the dated subfolders for migrated media: two different photos are both named `open.jpg`.
 
 ## 5. Migration plan — execute in phases, commit per phase
 

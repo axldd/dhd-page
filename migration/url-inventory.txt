@@ -48,7 +48,7 @@ KEEP  /datenschutz/              # scaffolded, legal text pending from the club
 KEEP  /404.html
 KEEP  /sitemap-index.xml
 #
-# --- Uploads that are deep-linked (exact paths must keep working) --------
+# --- PDFs that are deep-linked (exact paths must keep working) -----------
 KEEP  /wp-content/uploads/2026/01/2025-german-champs.pdf
 KEEP  /wp-content/uploads/2024/09/Gesamtwertung-DM-2024.pdf
 KEEP  /wp-content/uploads/2024/08/DM-Wertung-2024-1.pdf
@@ -69,9 +69,9 @@ KEEP  /wp-content/uploads/2026/04/RiW-26-K.O.-German-Open-Results-1.pdf
 KEEP  /wp-content/uploads/2026/04/RiW-26-K.O.-Finta-Results.xlsx.pdf
 KEEP  /wp-content/uploads/2026/04/RiW-26-K.O.-Masters-Results.xlsx.pdf
 KEEP  /wp-content/uploads/2026/04/RiW-26-K.O.-Open-International-Results.pdf
-KEEP  /wp-content/uploads/2024/04/DD_Logo_V2_1.weiss_-4.png
-#   (plus every image referenced from a migrated post or page - the parity
-#    check enumerates these from the built HTML rather than listing them here)
+#   Only non-images are pinned to their WordPress paths. Legacy *image* URLs
+#   (/wp-content/uploads/**/*.jpg etc.) were dropped on 2026-08-29: photos now
+#   live in src/assets/ and are served as optimized, hashed files. See REPORT §4.
 #
 # --- Dropped (signed off 2026-08-29) -------------------------------------
 DROP  /author/alex-dehmel/       # WP author archive

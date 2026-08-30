@@ -96,11 +96,15 @@ Drop images into `src/assets/` and reference them relatively from the post
 time, so upload the good version — you don't need to shrink anything by hand.
 Please don't put photos in `public/`; images there are served unoptimised.
 
+The photos carried over from WordPress sit in `src/assets/uploads/<year>/<month>/`.
+Leave them where they are — a couple of them share a filename, so moving them
+together into one folder would overwrite one of them.
+
 ## Common issues
 
 - **Post doesn't appear:** check the **Actions** tab — usually a typo in the header block (check the `---` lines and quotes). The error message names the affected file.
 - **Image not showing:** check the path — images live in `src/assets/`, and the reference in the post is relative (`../../assets/...`).
-- **Old links from Instagram etc.:** all URLs from the previous WordPress site keep working — please never rename the filenames/slugs of existing posts. `npm run check:urls` runs on every push and fails the build if one would break.
+- **Old links from Instagram etc.:** every page, post and PDF URL from the previous WordPress site keeps working — please never rename the filenames/slugs of existing posts, or move a PDF out of `public/wp-content/uploads/`. `npm run check:urls` runs on every push and fails the build if one would break. (Direct links to *image files* on the old site are the one exception — those were intentionally not carried over.)
 - **Everything is broken:** when in doubt, revert to the last working commit on GitHub — the site rebuilds from that state automatically.
 
 ## Legal
