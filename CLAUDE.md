@@ -19,7 +19,7 @@ markdown/data in git  →  push to main  →  Action builds Astro  →  GitHub P
 - **Migrate content verbatim.** Posts contain real race results, champions' names, dates, and points. Never paraphrase, "improve", translate, or invent any of it. After migration, verify migrated text against the snapshot (§5 Phase 0).
 - **Preserve public URLs.** Every URL in the inventory (§4) must resolve on the new site with the same path. Deep-linked files (especially the ranking PDFs under `/wp-content/uploads/...`) keep their exact original paths.
 - **Don't touch the old site.** The live WordPress and its VM are read-only reference until the user confirms decommissioning. Never modify, log into, or load-test it.
-- **Never delete** the `migration/` snapshot until the user explicitly confirms the migration is complete and verified.
+- The `migration/` snapshot (the wget mirror of the old WordPress site) was **deleted on 2026-08-31** at Alex's request, after the cutover was verified — he keeps his own backups. `npm run check:content` is therefore retired and exits non-zero. Keep `migration/url-inventory.txt` and `migration/raw/*.json`: they are the remaining record of what the old site contained.
 - **No secrets in git.** Deploys use the built-in `GITHUB_TOKEN`; there should be no other credentials in this project.
 - **Cutover is the user's call.** Build and deploy freely to the default `*.github.io` URL, but do not add the custom-domain CNAME or instruct DNS changes until the user approves (§5 Phase 6).
 - **Language:** site chrome and navigation are German (`lang="de"`). Posts are a mix of German and English — keep each post in its original language.
@@ -94,7 +94,7 @@ Automated check (`npm run check:urls`): after `npm run build`, verify every path
 1. Add `public/CNAME` containing `downhilldeutschland.de`; set the custom domain in repo Pages settings.
 2. User updates DNS: apex A records to GitHub Pages IPs + `www` CNAME (give them the current values from GitHub's docs — verify, don't recite from memory). Enforce HTTPS once the cert is issued.
 3. Confirm the live domain serves the new site; spot-check the inventory URLs on production.
-4. Old VM: keep it off DNS but running for ~1 week as fallback, then the user takes a final backup and deletes it. Only after their explicit confirmation, `migration/snapshot` may be pruned (keep `url-inventory.txt` and the uploads forever — they're content).
+4. Old VM: keep it off DNS but running for ~1 week as fallback, then the user takes a final backup and deletes it. (Done for the snapshot: pruned 2026-08-31.)
 
 ## 6. Repo layout (target)
 

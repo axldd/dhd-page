@@ -10,6 +10,12 @@
  * Some differences are expected and listed as such: navigation and footer
  * chrome differ by design, and structured pages (/kalender/, /ranking/) were
  * deliberately rebuilt. Anything else is a migration bug.
+ *
+ * RETIRED 2026-08-31. The migration is live and verified, and the snapshot has
+ * been deleted, so this cannot run any more. The final result is recorded in
+ * migration/REPORT.md §1. Kept because EDITED/RESTRUCTURED below document which
+ * pages deliberately diverged from WordPress and why. To run it again you would
+ * need a mirror of the old site, which no longer exists.
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -121,6 +127,17 @@ const read = (base, urlPath) => {
   }
   return null;
 };
+
+if (!fs.existsSync(SNAPSHOT)) {
+  console.error(
+    '\nThis check compares the built site against a mirror of the old WordPress\n' +
+      `site, which is gone: ${path.relative(ROOT, SNAPSHOT)} does not exist.\n\n` +
+      'It was deleted on 2026-08-31 after the migration went live and was verified\n' +
+      '(final result: migration/REPORT.md §1). Exiting non-zero rather than\n' +
+      'reporting a pass, because there is nothing left to compare against.\n',
+  );
+  process.exit(2);
+}
 
 let problems = 0;
 const rows = [];

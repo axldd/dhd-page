@@ -1,11 +1,12 @@
 # Migration report — WordPress → Astro
 
-Status: **first draft reviewed.** Nothing has been deployed and the live WordPress
-site is untouched.
+Status: **live.** downhilldeutschland.de has served the new site since 2026-08-31.
+All 53 preserved URLs return 200 on the live domain, the Let's Encrypt certificate
+covers the apex and `www`, and the old VM is kept off DNS as a fallback.
 
 Alex signed off on 2026-08-29: the dropped URLs in §3 are fine as they are, the
-international event calendar was dropped entirely, and `/datenschutz/` now carries a
-factual draft that still needs a legal review before cutover (§4).
+international event calendar was dropped entirely. The Datenschutzerklärung was
+approved on 2026-08-30 (§4).
 
 Generated 2026-08-29 from:
 
@@ -19,21 +20,29 @@ Generated 2026-08-29 from:
 
 ```bash
 npm run build && npm run check:urls   # every legacy URL resolves, no broken internal links
-npm run check:content                 # migrated text vs. the WordPress snapshot (needs migration/snapshot/)
 ```
+
+Final results, the content check as of its last run on 2026-08-31 immediately
+before the snapshot was deleted:
 
 | check | result |
 | --- | --- |
-| Legacy URLs that must resolve | **54 / 54 OK** |
+| Legacy URLs that must resolve | **53 / 53 OK** (also verified live on the domain) |
 | Broken internal links in the built HTML | **0** |
 | Pages compared word-for-word against the snapshot | **25** |
 | Pages that lost any content | **0** |
 | PDFs byte-identical to the backup | **20 / 20** |
 | Client-side JavaScript shipped | **0 bytes** |
 
+Two pages differ from WordPress on purpose and are recorded as such:
+`/impressum/` (rewritten for the e.V.) and the restructured `/kalender/`,
+`/ranking/`, `/community/`, `/kontakt/`.
+
 `check:urls` runs in the deploy workflow, so a change that would break an old URL
-fails the build before it can go live. `check:content` needs the local snapshot
-and is therefore a manual step.
+fails the build before it can go live. **`npm run check:content` is retired**: the
+wget mirror it compared against was deleted on 2026-08-31 at Alex's request (he
+keeps his own backups). The script now exits non-zero with an explanation rather
+than reporting a false pass.
 
 ## 2. The inventory was bigger than we thought
 
