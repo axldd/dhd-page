@@ -31,22 +31,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # TEMPORARY: builds the site to work under https://axldd.github.io/dhd-page/
-      # so club members can see it before the domain is switched over. The
-      # preview is noindex + robots Disallow so it can't compete with the real
-      # site in search results.
-      #
-      # AT CUTOVER: delete this `env:` block. That is the only change needed —
-      # the site then builds for the domain root again, indexable, as before.
       - name: Build site
         run: npm run build
-        env:
-          PREVIEW_BASE: /dhd-page
 
       - name: Check that every legacy URL still resolves
         run: npm run check:urls
-        env:
-          PREVIEW_BASE: /dhd-page
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
