@@ -1,7 +1,10 @@
 /**
- * One-shot WordPress -> Astro importer.
+ * One-shot WordPress -> Astro importer. ALREADY RUN — DO NOT RUN AGAIN.
  *
- *   npm run migrate
+ * Kept as the record of how the content was converted. Re-running it would
+ * overwrite everything in src/content/ from the cached REST API snapshot,
+ * discarding every edit made since the migration (the Impressum rewrite for the
+ * e.V., promoted cover images, ...). The guard below refuses to run.
  *
  * Pulls posts and pages from the live WP REST API, converts the rendered HTML to
  * markdown, and copies every referenced media file out of the local backup
@@ -285,6 +288,21 @@ function rewriteInternalLinks(md) {
 // ---------------------------------------------------------------------------
 // main
 // ---------------------------------------------------------------------------
+
+// The media source was deleted on 2026-08-31 once the site was live. Its absence
+// is a reliable signal that the migration is finished, so use it to refuse a
+// re-run rather than silently clobbering hand-edited content.
+if (!fs.existsSync(UPLOADS_SRC)) {
+  console.error(
+    '\nThe import has already been run and the site is live.\n\n' +
+      `Its media source is gone (${path.relative(ROOT, UPLOADS_SRC)}), and re-running would\n` +
+      'overwrite src/content/ from the cached REST API export — discarding the\n' +
+      'Impressum rewrite and every cover image picked since.\n\n' +
+      'To genuinely re-import, restore migration/uploads/ from the tar.gz backup\n' +
+      'first, and expect to redo the edits made since 2026-08-29.\n',
+  );
+  process.exit(2);
+}
 
 const authorById = new Map();
 
